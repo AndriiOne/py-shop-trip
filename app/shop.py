@@ -29,5 +29,5 @@ class Shop:
             total_cost = int(total_cost)
 
         print(f"Total cost is "
-              f"{round(self.get_product_cost(product_cart), 2)} dollars")
+              f"{total_cost} dollars")
         print("See you again!")
