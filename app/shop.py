@@ -8,15 +8,17 @@ class Shop:
         self.products = products
 
     def get_product_cost(self, product_cart: dict) -> float:
-        total_cost = 0
-        for product, count in product_cart.items():
-            total_cost += count * self.products[product]
-        return total_cost
+        return sum(
+            count * self.products[product]
+            for product, count in product_cart.items()
+        )
 
     def print_recipe(self, customer_name: str, product_cart: dict) -> None:
-        print(f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
-        print(f"Thanks, {customer_name}, for your purchase!")
-        print("You have bought:")
+        print(
+            f"Date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n"
+            f"Thanks, {customer_name}, for your purchase!\n"
+            "You have bought:"
+        )
 
         for product, amount in product_cart.items():
             product_total = round(self.products[product] * amount, 2)

@@ -11,30 +11,18 @@ def shop_trip() -> None:
 
     fuel_price = data["FUEL_PRICE"]
 
-    shops = []
-    for shop_data in data["shops"]:
-        shop_obj = shop.Shop(
-            name=shop_data["name"],
-            location=shop_data["location"],
-            products=shop_data["products"]
-        )
-        shops.append(shop_obj)
+    shops = [shop.Shop(**shop_data) for shop_data in data["shops"]]
 
-    customers = []
-    for cust_data in data["customers"]:
-        car_obj = car.Car(
-            brand=cust_data["car"]["brand"],
-            fuel_consumption=cust_data["car"]["fuel_consumption"]
-        )
-
-        customer_obj = customer.Customer(
+    customers = [
+        customer.Customer(
             name=cust_data["name"],
             product_cart=cust_data["product_cart"],
             location=cust_data["location"],
             money=cust_data["money"],
-            car=car_obj
+            car=car.Car(**cust_data["car"])
         )
-        customers.append(customer_obj)
+        for cust_data in data["customers"]
+    ]
 
     for person in customers:
         print(f"{person.name} has {person.money} dollars")
